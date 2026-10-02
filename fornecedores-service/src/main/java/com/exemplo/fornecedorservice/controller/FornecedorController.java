@@ -1,6 +1,8 @@
 package com.exemplo.fornecedorservice.controller;
 
 import com.exemplo.fornecedorservice.dto.FornecedorDTO;
+import com.exemplo.fornecedorservice.dto.ProdutoDTO;
+import com.exemplo.fornecedorservice.interfaces.ProdutoInterface;
 import com.exemplo.fornecedorservice.model.Fornecedor;
 import com.exemplo.fornecedorservice.service.FornecedorService;
 import org.springframework.http.HttpStatusCode;
@@ -14,14 +16,21 @@ import java.util.List;
 public class FornecedorController {
 
     private final FornecedorService service;
+    private final ProdutoInterface produtoInterface;
 
-    public FornecedorController(FornecedorService service) {
+    public FornecedorController(FornecedorService service, ProdutoInterface produtoInterface) {
         this.service = service;
+        this.produtoInterface = produtoInterface;
     }
 
     @GetMapping
     public List<Fornecedor> listarTodos() {
         return service.listarTodos();
+    }
+
+    @GetMapping("/produtos")
+    public List<ProdutoDTO> listarProdutos() {
+        return produtoInterface.listarTodos();
     }
 
     @GetMapping("/{id}")
